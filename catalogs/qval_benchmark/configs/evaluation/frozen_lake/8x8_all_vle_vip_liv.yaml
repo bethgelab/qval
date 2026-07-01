@@ -1,0 +1,36 @@
+dataset_path: shared/data/datasets/frozen_lake_vision/8x8_scripted_20260420_152752.pkl
+output_dir: data/evaluations/frozen_lake_vision/8x8_scripted_vle_vip_liv
+
+prediction_sources:
+  - path: data/predictions/frozen_lake_vision/8x8_scripted/gt
+    type: gt
+  - path: data/predictions/frozen_lake_vision/8x8_scripted_vle_all/eval
+    type: eval
+  - path: data/predictions/frozen_lake_vision/8x8_scripted_vip/eval
+    type: eval
+  - path: data/predictions/frozen_lake_vision/8x8_scripted_liv/eval
+    type: eval
+
+comparisons:
+  - gt: sv_mc_mean
+    eval:
+      - vle_cosine_clip
+      - vle_cosine_siglip
+      - vle_gbr_clip
+      - vle_gbr_siglip
+      - vle_softmax_clip
+      - vle_softmax_siglip
+      - vle_thresh_clip
+      - vle_thresh_siglip
+      - vip_v
+      - vip_shaped
+      - liv_img_v_cos
+      - liv_img_v_l2
+      - liv_img_shaped_cos
+      - liv_txt_v
+  - gt: qv_mc_mean
+    eval:
+      - vip_q
+      - liv_img_q_cos
+      - liv_img_q_l2
+      - liv_txt_q

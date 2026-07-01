@@ -1,0 +1,28 @@
+backends_config_path: shared/configs/backends.yaml
+dataset_path: shared/data/datasets/terminal_bench/200pt_lite-easy_40ms_ds32.pkl
+resume_ranking_from: shared/data/datasets/terminal_bench/200pt_noranking_lite-easy_40ms_ds32_20260413_141424.pkl
+
+batch_size: 32
+discount_factor: 0.95
+
+collection:
+    context_name: tblite_easy_40ms_react_tags
+    backend_names: [deepseek_v32_react]
+    restore_concurrency: 16
+    max_steps: 40
+    max_history_turns: 40
+    turn_info: true
+    runtime_probing: true
+    discard_runtime_probe_risky_trajectories: true
+    ranking_actions: 4
+    ranking_sampling_mode: llm
+    ranking_sampling:
+        temperature: 0.2
+        top_p: 1.0
+        max_tokens: 4096
+
+points_config:
+    num_trajectories: 22
+    max_points_per_trajectory: 1
+    early_turns_to_discard: 3
+    late_turns_to_discard: 3

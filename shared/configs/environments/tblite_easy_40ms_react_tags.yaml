@@ -1,0 +1,61 @@
+reward_signal_name: harbor
+min_action_chars: 4096
+min_observation_chars: 2048
+min_current_observation_chars: 4096
+min_next_observation_chars: 4096
+min_ranking_candidate_action_chars: 4096
+min_ranking_next_observation_chars: 4096
+
+task_description: >-
+    TerminalBench tasks under a persistent tmux-backed shell session.
+    Shell state persists across commands within an Apptainer container.
+    The agent must complete system administration, cryptography, ML,
+    data processing, and other containerized terminal tasks.
+
+reward_description: >-
+    Binary: 1.0 if the verifier test script passes, 0.0 otherwise.
+    Verification runs at terminal steps (submit or truncation).
+
+adapter: harbor
+env_name: "tblite"
+prompting_scheme: react_tags
+environment_extractor:
+    type: composite
+    extractors:
+        - type: tag_based
+          tag_name: action
+        - type: tag_based
+          tag_name: answer
+        - type: raw
+    pre_cleaners: [strip_thinking_tokens, strip_special_tokens]
+ranking_environment_extractor:
+    type: composite
+    extractors:
+        - type: tag_based
+          tag_name: action
+        - type: tag_based
+          tag_name: answer
+        - type: raw
+    pre_cleaners: [strip_thinking_tokens, strip_special_tokens]
+evaluator_extractor:
+    type: numeric
+    pre_cleaners: [strip_thinking_tokens, strip_special_tokens]
+
+turn_info: true
+
+make_kwargs:
+    dataset_path: ~/dev/OpenThoughts-TBLite
+    difficulties: ["easy"]
+    max_steps: 40
+    exec_timeout: 180
+    trajectory_timeout: 900
+    command_soft_timeout: 60
+    verify_on_truncation: true
+    text_exec_mode: tmux_session
+    tmux_bootstrap_if_missing: true
+    environment_type: apptainer-hpc
+    apptainer_command: singularity
+    fakeroot: true
+    sif_cache_dir: .sif_cache_lite
+    rootfs_mode: sandbox
+    pid_namespace: true

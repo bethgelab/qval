@@ -1,0 +1,19 @@
+dataset_path: shared/data/datasets/alfworld_vision/200pt_all-types_40ms_vision_v5_20260422_220922.pkl
+output_dir: data/evaluations/alfworld_vision/200pt_v5_llm_all_g4-31-or
+
+# GT was computed on the text-only source dataset (same 106-point ordering
+# so positional indexing still applies). Only the first 100 eval points have GT.
+prediction_sources:
+    - path: data/predictions/alfworld/100pt_all-types_40ms_ds32/gt
+      type: gt
+    - path: data/predictions/alfworld_vision/200pt_v5_llm_all_g4-31-or/eval
+      type: eval
+
+# Pointwise comparisons only — ranking methods are auto-paired against the
+# ranking_gt_* families by evaluate.py.
+comparisons:
+    - gt: qv_mc_mean
+      eval:
+          - llm_direct_qv_optimal_g4-31-or
+          - llm_direct_qv_optimal_batch4_packed_g4-31-or
+          - llm_gvl_qv_optimal_g4-31-or

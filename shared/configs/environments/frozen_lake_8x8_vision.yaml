@@ -1,0 +1,47 @@
+adapter: gymnasium
+env_name: frozen_lake/8x8
+prompting_scheme: react_tags
+# 14 is the shortest possible path (S top-left → G bottom-right). With
+# epsilon=0.3 noise on the scripted policy, give comfortable extra room
+# so successful trajectories still reach the goal.
+max_steps: 30
+turn_info: true
+make_kwargs:
+    is_slippery: false
+    map_name: "8x8"
+    use_images: true
+    num_maps: 8
+    map_seed: 42
+reward_signal_name: null
+# Vision-only by default: drop serialized ASCII grid text when an image
+# is present for a state. Set to true to re-enable the text for ablations.
+include_state_text_when_images: false
+
+task_description: >-
+    The agent navigates a frozen lake grid (8x8) from start (S) to goal (G)
+    without falling into holes (H). Each trajectory uses a different randomly
+    generated 8x8 map. The agent sees both an ASCII grid (agent marked '@')
+    and a rendered image of the same grid. Actions: left, down, right, up.
+    Moving off the grid keeps the agent in place. The episode ends when the
+    agent reaches the goal, falls into a hole, or the step limit is reached.
+
+reward_description: >-
+    Sparse outcome-based reward: 1.0 for reaching the goal (G), 0.0 otherwise.
+
+evaluator_extractor:
+    type: numeric
+    pre_cleaners: [strip_thinking_tokens, strip_special_tokens]
+
+environment_extractor:
+    type: composite
+    extractors:
+        - type: tag_based
+        - type: single_line
+          max_chars: 32
+          inner:
+              type: raw
+    pre_cleaners: [strip_thinking_tokens, strip_special_tokens]
+    post_cleaners:
+        - type: truncate_tail
+          config:
+              max_chars: 32

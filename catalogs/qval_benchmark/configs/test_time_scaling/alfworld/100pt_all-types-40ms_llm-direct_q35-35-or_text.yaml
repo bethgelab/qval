@@ -1,0 +1,34 @@
+backends_config_path: configs/backends.yaml
+context_name: alfworld_40ms_react_tags
+actor_backend_name: qwen35_35_thinking_or
+seed: 42
+samples_per_task: 3
+num_tasks: 40
+shuffle_tasks: false
+batch_size: 64
+success_threshold: 1.0
+
+guided_actor:
+    k: 8
+    scorer:
+        name: direct_q
+        type: llm_direct
+        signal_type: q_value
+        backend_name: qwen35_35_thinking_or
+        prompt_preset: v2
+        include_next_state: true
+
+self_consistency:
+    # `discrete` votes on each candidate's resolved action (FrozenLake has a
+    # small, enumerable action set: left/down/right/up).
+    # mode: discrete
+    # For open-ended action spaces (e.g. ALFWorld), switch to Universal
+    # Self-Consistency: a selector LLM picks the most consistent action among the
+    # candidates' extracted actions. The selector backend needs enough max_tokens
+    # to reason briefly and then emit "The most consistent response is Response X"
+    # (plus any thinking) — too small a budget truncates before the answer and
+    # falls back to a random candidate.
+    #
+    mode: open_ended
+    backend_name: qwen35_35_thinking_or
+    max_candidate_chars: 8192

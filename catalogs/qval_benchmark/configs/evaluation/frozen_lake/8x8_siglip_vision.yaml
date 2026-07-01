@@ -1,0 +1,16 @@
+dataset_path: shared/data/datasets/frozen_lake/8x8_scripted_20260420_152752.pkl
+output_dir: data/evaluations/frozen_lake/8x8_siglip_vision
+
+prediction_sources:
+  - path: data/predictions/frozen_lake/GT_200pt_8x8_scripted/gt
+    type: gt
+  - path: data/predictions/frozen_lake/EVAL_100pt_8x8_siglip_vision/eval
+    type: eval
+
+comparisons:
+  - gt: qv_mc_max
+    eval:
+      - vle-cosine_qv
+      - vle-gbr_qv
+      - vle-softmax_qv
+      - vle-thresh_qv

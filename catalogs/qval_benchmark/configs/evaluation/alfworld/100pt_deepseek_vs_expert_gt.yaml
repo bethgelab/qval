@@ -1,0 +1,23 @@
+dataset_path: shared/data/datasets/alfworld/200pt_all-types_40ms_ds32_20260414_035138.pkl
+output_dir: data/evaluations/alfworld/100pt_deepseek_vs_expert_gt
+
+# Side-by-side: existing DeepSeek-MC GT (computed with deepseek_v32 as
+# rollout policy) and the new Expert-MC GT (computed with the
+# alfworld_expert handcoded planner). Lets us correlate the two GT
+# families and pick a canonical one for downstream evaluations.
+prediction_sources:
+    - path: data/predictions/alfworld/100pt_all-types_40ms_ds32/gt
+      type: gt
+      method_name_prefix: ds_   # gt_qv_mc_mean -> ds_qv_mc_mean
+    - path: data/predictions/alfworld/100pt_all-types_40ms_ds32_expert/gt
+      type: gt
+      method_name_prefix: ex_   # gt_qv_mc_expert -> ex_qv_mc_expert
+
+# GT × GT comparison: DeepSeek qv_mean treated as "GT", Expert qv treated as eval
+# Same-assumption only (Q_VALUE × Q_VALUE). The DS GT family doesn't
+# include a state_value variant, so we don't compare sv side here.
+gt_vs_gt_comparisons:
+    - lhs: ds_qv_mc_mean
+      rhs: ex_qv_mc_expert
+    - lhs: ds_qv_mc_max
+      rhs: ex_qv_mc_expert

@@ -1,0 +1,17 @@
+dataset_path: shared/data/datasets/frozen_lake/8x8_scripted_20260420_152752.pkl
+output_dir: data/evaluations/frozen_lake/8x8_q35-122-or_vision
+
+prediction_sources:
+  - path: data/predictions/frozen_lake/GT_200pt_8x8_scripted/gt
+    type: gt
+  - path: data/predictions/frozen_lake/EVAL_100pt_8x8_q35-122-or_vision/eval
+    type: eval
+
+comparisons:
+  - gt: qv_mc_max
+    eval:
+      - direct-batch4-packed_qv
+      - direct-batch8-seq_qv
+      - direct-verif16_qv
+      - direct_qv
+      - gvl_qv

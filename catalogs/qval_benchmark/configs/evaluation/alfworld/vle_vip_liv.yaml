@@ -1,0 +1,30 @@
+dataset_path: shared/data/datasets/alfworld_vision/200pt_all-types_40ms_vision_v5_20260422_220922.pkl
+output_dir: data/evaluations/alfworld_vision/200pt_v5_vle_vip_liv
+
+# GT was computed on the text-only source dataset (same 106-point ordering so
+# positional indexing still applies). Only the first 100 eval points have GT.
+prediction_sources:
+    - path: data/predictions/alfworld/100pt_all-types_40ms_ds32/gt
+      type: gt
+    - path: data/predictions/alfworld_vision/200pt_v5_vle_all/eval
+      type: eval
+    - path: data/predictions/alfworld_vision/200pt_v5_vip/eval
+      type: eval
+    - path: data/predictions/alfworld_vision/200pt_v5_liv/eval
+      type: eval
+
+comparisons:
+    - gt: qv_mc_mean
+      eval:
+          - vle_cosine_clip
+          - vle_cosine_siglip
+          - vle_gbr_clip
+          - vle_gbr_siglip
+          - vle_softmax_clip
+          - vle_softmax_siglip
+          - vle_thresh_clip
+          - vle_thresh_siglip
+          - vip_q
+          - liv_img_q_cos
+          - liv_img_q_l2
+          - liv_txt_q

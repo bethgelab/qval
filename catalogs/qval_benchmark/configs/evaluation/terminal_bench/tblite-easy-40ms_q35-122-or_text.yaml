@@ -1,0 +1,35 @@
+dataset_path: shared/data/datasets/terminal_bench/200pt_lite-easy_40ms_ds32_20260415_014717.pkl
+output_dir: data/evaluations/terminal_bench/tblite-easy-40ms_q35-122-or_text
+
+prediction_sources:
+  - path: data/predictions/terminal_bench/GT_100pt_tblite-easy-40ms_codex-55/gt
+    type: gt
+  - path: data/predictions/terminal_bench/EVAL_100pt_tblite-easy-40ms_q35-122-or_text/eval
+    type: eval
+
+comparisons:
+  - gt: qv_mc_max
+    eval:
+      - codegen-mean_qv
+      - codegen-s0_qv
+      - codegen-s10_qv
+      - codegen-s11_qv
+      - codegen-s12_qv
+      - codegen-s13_qv
+      - codegen-s14_qv
+      - codegen-s15_qv
+      - codegen-s1_qv
+      - codegen-s2_qv
+      - codegen-s3_qv
+      - codegen-s4_qv
+      - codegen-s5_qv
+      - codegen-s6_qv
+      - codegen-s7_qv
+      - codegen-s8_qv
+      - codegen-s9_qv
+      - direct-batch4-packed_qv
+      - direct-batch8-seq_qv
+      - direct-verif16_qv
+      - direct_qv
+      - eureka_qv
+      - gvl_qv

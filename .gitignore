@@ -1,0 +1,84 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# macOS
+.DS_Store
+
+# Virtual environments
+.venv
+
+# Logs and results
+results/
+logs/
+.logs/
+*.out
+*.log
+
+# Local libraries
+flashinfer/
+
+# Generated output
+prompt_previews/
+
+# Dev
+.vscode/
+
+# Internal dev
+docs/design/
+/data/
+/data_final/
+
+# Multi-catalog layout
+# Shared benchmark datasets are downloaded by users, not committed. Keep the
+# per-env directory layout (via .gitkeep placeholders) so users know where to
+# place the downloaded datasets.
+shared/data/datasets/**
+!shared/data/datasets/**/
+!shared/data/datasets/**/.gitkeep
+# Catalog outputs: commit the JSON / codegen result artifacts (the raw paper
+# results); ignore regenerable intermediates (run logs, MC rollout caches,
+# archives).
+catalogs/*/data/**/rollouts/
+catalogs/*/data/**/*.jsonl
+catalogs/*/data/**/*.log
+catalogs/*/data/**/*.pkl
+catalogs/*/data/**/*.zip
+# Old / non-benchmark cruft, parked locally out of the repo.
+legacy/
+# --- Recovered local archives & working files (2026-06-19 stash-wipe recovery; never commit/push) ---
+# bulk untracked archive dirs
+/_data_oldnaming/
+/_data_bkp/
+/release/
+/figures/
+/paper/
+/paper_bkp/
+/paper_bkp_2/
+/paper_bkp_3/
+/datasets/
+/pruned_datasets/
+/.sif_cache_lite/
+/EVAL_100pt_8x8_g4-26-or_text/
+# large data snapshot kept compressed (see data_20260506_1552.tar.gz)
+/data_20260506_1552/
+/data_20260506_1552.tar.gz
+# loose working files at repo root
+/bibliography.bib
+/paper.pdf
+/paper_conversation.txt
+/data_audit.txt
+/Experiments - _filtering_2.csv
+/methods_literature_review_1.md
+/methods_literature_review_2.pdf
+/methods_literature_review_3.md
+/tst.sh
+# recovered local utility scripts
+/scripts/preview_forbidden_actions.py
+/scripts/probe_claude_code.py
+# recovered local plan doc
+/docs/superpowers/plans/2026-04-08-ranking-prompt-improvements.md

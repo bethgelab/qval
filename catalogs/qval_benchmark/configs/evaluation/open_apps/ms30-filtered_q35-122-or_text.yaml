@@ -1,0 +1,60 @@
+dataset_path: shared/data/datasets/open_apps/scripted_200traj_ms30_ranking_filtered_4tasks_dropped.pkl
+output_dir: data/evaluations/open_apps/ms30-filtered_q35-122-or_text
+
+prediction_sources:
+  - path: data/predictions/open_apps/GT_200pt-ms30_scripted/gt
+    type: gt
+  - path: data/predictions/open_apps/EVAL_200pt-ms30_q35-122-or_text/eval
+    type: eval
+
+comparisons:
+  - gt: qv_mc_max
+    eval:
+      - codegen-mean_qv
+      - codegen-s0_qv
+      - codegen-s10_qv
+      - codegen-s11_qv
+      - codegen-s12_qv
+      - codegen-s13_qv
+      - codegen-s14_qv
+      - codegen-s15_qv
+      - codegen-s1_qv
+      - codegen-s2_qv
+      - codegen-s3_qv
+      - codegen-s4_qv
+      - codegen-s5_qv
+      - codegen-s6_qv
+      - codegen-s7_qv
+      - codegen-s8_qv
+      - codegen-s9_qv
+      - direct-batch4-packed_qv
+      - direct-batch8-seq_qv
+      - direct-verif16_qv
+      - direct_qv
+      - eureka_qv
+      - gvl_qv
+  - gt: sv_mc_max
+    eval:
+      - codegen-mean_sv
+      - codegen-s0_sv
+      - codegen-s10_sv
+      - codegen-s11_sv
+      - codegen-s12_sv
+      - codegen-s13_sv
+      - codegen-s14_sv
+      - codegen-s15_sv
+      - codegen-s1_sv
+      - codegen-s2_sv
+      - codegen-s3_sv
+      - codegen-s4_sv
+      - codegen-s5_sv
+      - codegen-s6_sv
+      - codegen-s7_sv
+      - codegen-s8_sv
+      - codegen-s9_sv
+      - direct-batch4-packed_sv
+      - direct-batch8-seq_sv
+      - direct-verif16_sv
+      - direct_sv
+      - eureka_sv
+      - gvl_sv

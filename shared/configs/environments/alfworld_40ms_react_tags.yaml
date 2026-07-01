@@ -1,0 +1,72 @@
+adapter: alfworld
+env_name: alfworld:eval_out_of_distribution
+prompting_scheme: react_tags
+max_steps: 40
+min_action_chars: 64
+min_observation_chars: 256
+min_current_observation_chars: 512
+min_next_observation_chars: 256
+turn_info: true
+make_kwargs:
+    task_types: [1]
+    include_admissible_commands: true
+    include_objective_in_obs: true
+    visual: false
+reward_signal_name: task_completion
+invalid_action_text: "[invalid action]"
+invalid_action_observation: >-
+    The previous response was not a valid ALFWorld command. A turn was wasted.
+    Provide exactly one command in the required format and use an admissible
+    command described above.
+advance_on_invalid: __invalid_action_noop__
+task_description: >-
+    The agent acts in ALFWorld, a multi-turn household environment grounded in
+    text-based interactive tasks. Each episode specifies a concrete household
+    goal, such as moving an object to a target location. On every turn, the
+    agent sees the current observation and should respond with a single text
+    command that changes the environment state.
+
+    The environment is sequential and interactive. Valid commands include
+    navigation, object manipulation, and object-state changes such as cleaning.
+    The episode ends when the task is completed or when the step limit is
+    reached.
+
+reward_description: >-
+    The native reward is sparse and outcome-based: 1.0 when the episode reaches a successful terminal state and 0.0
+    otherwise.
+
+environment_extractor:
+    type: composite
+    pre_cleaners: [strip_thinking_tokens, strip_special_tokens]
+    post_cleaners:
+        - type: truncate_tail
+          config:
+              max_chars: 128
+    extractors:
+        - type: tag_based
+          tag_name: action
+        - type: tag_based
+          tag_name: answer
+        - type: single_line
+          max_chars: 128
+          inner:
+              type: raw
+ranking_environment_extractor:
+    type: composite
+    pre_cleaners: [strip_thinking_tokens, strip_special_tokens]
+    post_cleaners:
+        - type: truncate_tail
+          config:
+              max_chars: 128
+    extractors:
+        - type: tag_based
+          tag_name: action
+        - type: tag_based
+          tag_name: answer
+        - type: single_line
+          max_chars: 128
+          inner:
+              type: raw
+evaluator_extractor:
+    type: numeric
+    pre_cleaners: [strip_thinking_tokens, strip_special_tokens]

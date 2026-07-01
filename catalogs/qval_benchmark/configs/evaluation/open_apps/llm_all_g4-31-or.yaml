@@ -1,0 +1,19 @@
+dataset_path: shared/data/datasets/open_apps_vision/scripted_200traj_20260420_172324.pkl
+output_dir: data/evaluations/open_apps_vision/scripted_200traj_llm_all_g4-31-or
+
+# Our LLM eval run used max_eval_points=100 on a 419-point dataset.
+# Point at a sliced-to-100 GT mirror so prefix-match holds.
+# NOTE: OA GT has 40% zero/None points within max_steps=15 (see dataset-health
+# analysis 2026-04-24) — correlations here will be noisy for the hard tasks.
+prediction_sources:
+    - path: data/predictions/open_apps_vision/scripted_200traj/gt_first100
+      type: gt
+    - path: data/predictions/open_apps_vision/scripted_200traj_llm_all_g4-31-or/eval
+      type: eval
+
+comparisons:
+    - gt: qv_mc_mean
+      eval:
+          - llm_direct_qv_optimal_g4-31-or
+          - llm_direct_qv_optimal_batch4_packed_g4-31-or
+          - llm_gvl_qv_optimal_g4-31-or

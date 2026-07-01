@@ -1,0 +1,38 @@
+dataset_path: shared/data/datasets/alfworld/200pt_all-types_40ms_ds32_20260414_035138.pkl
+output_dir: data/evaluations/alfworld/all-types-40ms_q35-27-or_text
+
+prediction_sources:
+  - path: data/predictions/alfworld/GT_200pt_all-types-40ms_scripted/gt
+    type: gt
+  - path: data/predictions/alfworld/EVAL_100pt_all-types-40ms_q35-27-or_text/eval
+    type: eval
+
+comparisons:
+  - gt: qv_mc_max
+    eval:
+      - verifier_qv
+  - gt: sv_mc_max
+    eval:
+      - codegen-mean_sv
+      - codegen-s0_sv
+      - codegen-s10_sv
+      - codegen-s11_sv
+      - codegen-s12_sv
+      - codegen-s13_sv
+      - codegen-s14_sv
+      - codegen-s15_sv
+      - codegen-s1_sv
+      - codegen-s2_sv
+      - codegen-s3_sv
+      - codegen-s4_sv
+      - codegen-s5_sv
+      - codegen-s6_sv
+      - codegen-s7_sv
+      - codegen-s8_sv
+      - codegen-s9_sv
+      - direct-batch4-packed_sv
+      - direct-batch8-seq_sv
+      - direct-verif16_sv
+      - direct_sv
+      - eureka_sv
+      - gvl_sv

@@ -1,0 +1,25 @@
+backends_config_path: shared/configs/backends.yaml
+dataset_path: shared/data/datasets/alfworld/200pt_all-types_40ms_ds32.pkl
+
+batch_size: 256
+discount_factor: 0.95
+
+collection:
+    context_name: alfworld_40ms_react_tags
+    backend_names: [deepseek_v32_react_actions_or]
+    max_steps: 40
+    max_history_turns: 40
+    turn_info: true
+    ranking_actions: 4
+    ranking_sampling_mode: llm
+    ranking_sampling:
+        temperature: 0.2
+        top_p: 1.0
+        max_tokens: 128
+
+points_config:
+    num_trajectories: 40
+    max_points_per_trajectory: 5
+    shuffle_tasks: true
+    early_turns_to_discard: 1
+    late_turns_to_discard: 2

@@ -1,0 +1,23 @@
+dataset_path: shared/data/datasets/frozen_lake/4x4_6ms_qwen36_or.pkl
+output_dir: data/evaluations/frozen_lake/4x4_6ms_qwen36_or
+
+prediction_sources:
+  - path: data/predictions/frozen_lake/4x4_6ms_qwen36_or
+
+comparisons:
+  - gt: sv_mc_mean
+    eval: [llm_direct_sv_self, llm_direct_sv_optimal, llm_codegen_sv_self, llm_codegen_sv_optimal]
+  - gt: sv_mc_max
+    eval: [llm_direct_sv_self, llm_direct_sv_optimal, llm_codegen_sv_self, llm_codegen_sv_optimal]
+  - gt: qv_mc_mean
+    eval: [llm_direct_qv_self, llm_direct_qv_optimal, llm_codegen_qv_self, llm_codegen_qv_optimal, llm_ranking_self, llm_ranking_optimal]
+  - gt: qv_mc_max
+    eval: [llm_direct_qv_self, llm_direct_qv_optimal, llm_codegen_qv_self, llm_codegen_qv_optimal, llm_ranking_self, llm_ranking_optimal]
+  - gt: adv_mc_mean
+    eval: [llm_direct_adv_self, llm_direct_adv_optimal, llm_codegen_adv_self, llm_codegen_adv_optimal]
+  - gt: adv_mc_max
+    eval: [llm_direct_adv_self, llm_direct_adv_optimal, llm_codegen_adv_self, llm_codegen_adv_optimal]
+  - gt: pot_mc_mean
+    eval: [llm_direct_pot_self, llm_direct_pot_optimal, llm_codegen_pot_self, llm_codegen_pot_optimal]
+  - gt: pot_mc_max
+    eval: [llm_direct_pot_self, llm_direct_pot_optimal, llm_codegen_pot_self, llm_codegen_pot_optimal]

@@ -1,0 +1,17 @@
+dataset_path: shared/data/datasets/alfworld/200pt_all-types_40ms_ds32_20260414_035138.pkl
+output_dir: data/evaluations/alfworld/all-types-40ms_g4-26-or_vision
+
+prediction_sources:
+  - path: data/predictions/alfworld/GT_200pt_all-types-40ms_scripted/gt
+    type: gt
+  - path: data/predictions/alfworld/EVAL_200pt_all-types-40ms_g4-26-or_vision/eval
+    type: eval
+
+comparisons:
+  - gt: qv_mc_max
+    eval:
+      - direct-batch4-packed_qv
+      - direct-batch8-seq_qv
+      - direct-verif16_qv
+      - direct_qv
+      - gvl_qv

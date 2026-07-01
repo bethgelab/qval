@@ -1,0 +1,27 @@
+backends_config_path: shared/configs/backends.yaml
+dataset_path: shared/data/datasets/frozen_lake_vision/8x8_scripted.pkl
+
+batch_size: 64
+discount_factor: 0.95
+
+collection:
+    context_name: frozen_lake_8x8_vision
+    # Scripted policy with stochastic noise: produces a balanced dataset of
+    # successful and failed trajectories, so GT values vary (instead of all
+    # collapsing to ~1.0 with a perfect actor).
+    scripted_policy_name: frozen_lake_random_8x8
+    # Mixing rate. 0.1 gives ~25% successful trajectories on 8x8 (within
+    # the 30-40% target from the team discussion); 0.3 collapses to ~2.5%
+    # because every random action has high hole-probability on 8x8.
+    scripted_policy_epsilon: 0.1
+    scripted_policy_seed: 42
+    # Ranking enabled via the replay-free restore_fn (frozen_lake_restore)
+    # wired in build_env_factory for gymnasium+use_images.
+    ranking_actions: 4
+    ranking_sampling_mode: manual
+    ranking_sampler_name: frozen_lake
+
+points_config:
+    # 50 × 5 points target ~240 after early/late-turn filtering; guarantees ≥200.
+    num_trajectories: 50
+    max_points_per_trajectory: 5

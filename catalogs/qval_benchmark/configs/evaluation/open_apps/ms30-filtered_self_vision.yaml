@@ -1,0 +1,20 @@
+dataset_path: shared/data/datasets/open_apps/scripted_200traj_ms30_ranking_filtered_4tasks_dropped.pkl
+output_dir: data/evaluations/open_apps/ms30-filtered_self_vision
+
+prediction_sources:
+  - path: data/predictions/open_apps/GT_200pt-ms30_scripted/gt
+    type: gt
+  - path: data/predictions/open_apps/EVAL_200pt-ms30_self_vision/eval
+    type: eval
+
+comparisons:
+  - gt: qv_mc_max
+    eval:
+      - liv-cos_qv
+      - liv-l2_qv
+      - liv-txt_qv
+  - gt: sv_mc_max
+    eval:
+      - liv-cos_sv
+      - liv-l2_sv
+      - liv-txt_sv

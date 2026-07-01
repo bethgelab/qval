@@ -1,0 +1,17 @@
+dataset_path: shared/data/datasets/terminal_bench/200pt_lite-easy_40ms_ds32_20260415_014717.pkl
+output_dir: data/evaluations/terminal_bench/gt_vs_gt_codex_vs_opus
+
+prediction_sources:
+    - path: data/predictions/terminal_bench/GT_100pt_tblite-easy-40ms_codex-55/gt
+      type: gt
+      method_name_prefix: codex_
+      exclude_methods: [ranking_gt_qv_mc_max, ranking_gt_qv_mc_mean]
+    - path: data/predictions/terminal_bench/GT_100pt_tblite-easy-40ms_opus-47/gt
+      type: gt
+      method_name_prefix: opus_
+
+gt_vs_gt_comparisons:
+    - lhs: codex_qv_mc_max
+      rhs: opus_qv_mc_max
+    - lhs: codex_qv_mc_mean
+      rhs: opus_qv_mc_mean

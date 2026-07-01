@@ -1,0 +1,56 @@
+adapter: open_apps
+# Initial task name (first OPEN_APPS_TASKS entry). task_index switching
+# at reset() picks any of the 8 tasks per trajectory.
+env_name: add_meeting_with_dennis
+# Recovery-first OpenApps runs use 45 steps consistently for collection
+# and GT so scripted rollouts have budget to unwind random-prefix detours.
+max_steps: 45
+turn_info: true
+reward_signal_name: task_completion
+# Vision-only by default: drop the accessibility-tree text when a state
+# has an image. Set to true for text+image ablations.
+include_state_text_when_images: false
+
+make_kwargs:
+  headless: true
+  use_screenshot: true
+  screenshot_with_som: true
+  # 60s default was too tight: SoM screenshots + OpenApps map/form
+  # interactions need more headroom — Q phase saw 33% restore/step
+  # timeouts at 60s; 180s repaired all 36 nulls.
+  browsergym_call_timeout: 180
+  viewport:
+    width: 1280
+    height: 720
+
+task_description: >-
+  OpenApps — a suite of synthetic web applications (Todo, Calendar, Messenger,
+  Maps, Code Editor) built with FastHTML. The agent interacts with the apps via
+  BrowserGym browser actions, navigating pages by clicking links, filling forms,
+  pressing buttons, and scrolling. Each episode specifies a concrete goal such
+  as adding a calendar event or sending a message. Observations include both an
+  accessibility-tree text representation and a screenshot of the current page
+  with Set-of-Marks bid number tags drawn on visible interactive elements.
+  Actions are BrowserGym primitives like click('bid'), fill('bid', 'text'),
+  press('bid', 'key'), noop(ms), and scroll(x, y).
+
+reward_description: >-
+  The reward is binary and outcome-based: 1.0 when the task-level goal has been
+  achieved (verified by comparing the application state against the expected
+  target state) and 0.0 otherwise. The check runs after every step via the
+  OpenApps server API.
+
+environment_extractor:
+  type: composite
+  extractors:
+    - type: tag_based
+    - type: raw
+  pre_cleaners: [strip_thinking_tokens, strip_special_tokens]
+  post_cleaners:
+    - type: truncate_tail
+      config:
+        max_chars: 1024
+
+evaluator_extractor:
+  type: numeric
+  pre_cleaners: [strip_thinking_tokens, strip_special_tokens]

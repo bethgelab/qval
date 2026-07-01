@@ -1,0 +1,28 @@
+backends_config_path: shared/configs/backends.yaml
+# Augment the filtered SoM dataset with manual-AXTree ranking candidates.
+# Eval points carry over unchanged; only ranking_points are added.
+resume_ranking_from: shared/data/datasets/open_apps_vision/scripted_40traj_eps025_ms45_recovery_som_100pt_filtered_zeros_20260504_190309.pkl
+dataset_path: shared/data/datasets/open_apps_vision/scripted_40traj_eps025_ms45_recovery_som_100pt_filtered_zeros_ranking.pkl
+
+batch_size: 4
+discount_factor: 0.95
+max_aborted_points: 0.20
+
+collection:
+    context_name: open_apps_vision_recovery_som
+    scripted_policy_name: open_apps
+    # Pull ranking candidates from the live AXTree (deterministic) rather
+    # than LLM sampling; matches scripted_200traj_ms45_recovery_ranking.yaml.
+    ranking_actions: 4
+    ranking_sampling_mode: manual
+    ranking_sampler_name: open_apps
+    # OpenApps restore is browser/server backed; keep ranking validation serial.
+    restore_concurrency: 1
+
+points_config:
+    num_trajectories: 40
+    shuffle_tasks: true
+    max_points_per_trajectory: 3
+    sampling_strategy: uniform
+    early_turns_to_discard: 1
+    late_turns_to_discard: 1

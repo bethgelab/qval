@@ -1,0 +1,25 @@
+context_name: frozen_lake_8x8_react_tags
+
+# Backend
+backends_config_path: shared/configs/backends.yaml
+backend_name: deepseek_v32_react
+
+# Task selection
+num_tasks: 40 # how many tasks to evaluate (null = all)
+task_indices: null # explicit list overrides num_tasks
+shuffle_tasks: true # shuffle before selecting
+
+# Pass@k parameters
+samples_per_task: 6 # N independent runs per task
+k_values: [1, 2, 4, 6] # which k to compute
+
+# Collection
+batch_size: 16 # max concurrent trajectories
+seed: 42
+
+# Output
+output_path: data/pass_at_k/frozen_lake/8x8_ds32.json # null = console only
+
+# Optional
+max_history_turns: 0 # truncate conversation history
+debug: false
