@@ -1,7 +1,6 @@
 # QVal
 
-QVal (this repository and its Python package are named `qval` /
-`qval`) is a **training-free testbed for dense signal functions** — the
+QVal is a **training-free testbed for dense signal functions** — the
 reward, state-value, Q-value, and advantage signals that methods produce for
 reinforcement-learning agents. Instead of training an agent on a candidate
 signal and measuring downstream performance, QVal scores a method directly by
