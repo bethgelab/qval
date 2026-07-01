@@ -1,11 +1,11 @@
 # QVal
 
-QVal is a **training-free testbed for dense signal functions** — the
+QVal is a **training-free testbed for dense signal functions** (i.e., the
 reward, state-value, Q-value, and advantage signals that methods produce for
-reinforcement-learning agents. Instead of training an agent on a candidate
+post-training). Instead of training an agent on a candidate
 signal and measuring downstream performance, QVal scores a method directly by
-how well its signal correlates with Monte-Carlo ground-truth values estimated
-from a fixed set of evaluation points (Pearson, Spearman, sign agreement).
+how well its signal correlates with reference Q-values estimated
+from a fixed set of evaluation points.
 
 **New here? Start with [docs/getting_started.md](docs/getting_started.md).**
 
